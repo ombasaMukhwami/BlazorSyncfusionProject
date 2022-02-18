@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BlazoeProject.Contract\BlazoeProject.Contract.csproj" />
+    <ProjectReference Include="..\..\BlazoeProject.Repository\BlazoeProject.Repository.csproj" />
+    <ProjectReference Include="..\Client\BlazoeProject.Client.csproj" />
+    <ProjectReference Include="..\Shared\BlazoeProject.Shared.csproj" />
+  </ItemGroup>
+
+
+</Project>
