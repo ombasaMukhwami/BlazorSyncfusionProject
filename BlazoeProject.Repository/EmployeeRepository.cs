@@ -17,9 +17,9 @@ namespace BlazoeProject.Repository
         public EmployeeRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
-        }
+        }       
 
-        public override IQueryable<Employee> FindAllAsync()
+        public override IQueryable<Employee> FindAll()
         {
             return _dbContext
                 .Employees
@@ -27,11 +27,21 @@ namespace BlazoeProject.Repository
                 .AsNoTracking();
         }
 
-        public override IQueryable<Employee> FindAllAsync(Expression<Func<Employee, bool>> expression)
+        public override IQueryable<Employee> FindAll(Expression<Func<Employee, bool>> expression)
         {
             return _dbContext.Employees
                 .Where(expression)
                 .Include(c => c.Department);
+        }
+
+        public override async Task<MyDataResult<Employee>> FindAllAsync(int skip = 0, int take = 5)
+        {
+            var employee = _dbContext.Employees.Include(c => c.Department);
+            return new MyDataResult<Employee>
+            {
+                Count = await employee.CountAsync(),
+                Result = employee.Skip(skip).Take(take).AsNoTracking()
+            };
         }
 
         public async override Task<Employee> FindByIdAsync(int id)

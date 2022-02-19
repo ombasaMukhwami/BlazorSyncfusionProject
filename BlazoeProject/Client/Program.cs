@@ -1,3 +1,4 @@
+using BlazoeProject.Client.services.DataAdaptors;
 using BlazoeProject.Server.services;
 using BlazoeProject.Server.services.Implementation;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -31,6 +32,8 @@ namespace BlazoeProject.Client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddSyncfusionBlazor();
+            builder.Services.AddScoped<EmployeeDataAdaptor>();
+
             await builder.Build().RunAsync();
         }
     }

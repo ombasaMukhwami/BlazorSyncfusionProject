@@ -25,11 +25,13 @@ namespace BlazoeProject.Server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Employee>> GetEmployees()
+        public async Task<ActionResult> GetEmployees(int skip = 0, int take = 5)
         {
             try
             {
-                return Ok(_db.Employees.FindAllAsync().ToList());
+                var employees = await _db.Employees.FindAllAsync(skip, take);
+
+                return Ok(employees);
             }
             catch (Exception ex)
             {
@@ -65,7 +67,7 @@ namespace BlazoeProject.Server.Controllers
                 if (employee == null)
                     return BadRequest();
 
-                var emp = _db.Employees.FindAllAsync(c => c.Email == employee.Email);
+                var emp = _db.Employees.FindAll(c => c.Email == employee.Email);
                 if (emp != null)
                 {
                     ModelState.AddModelError(nameof(Employee.Email), "Employee email already exist");

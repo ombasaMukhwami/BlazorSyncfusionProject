@@ -9,7 +9,7 @@ namespace BlazoeProject.Server.services
 
     public interface IEmployeeService
     {
-        Task<IEnumerable<Employee>> GetEmployees();
+        Task<MyDataResult<Employee>> GetEmployees(int skip, int take);
         Task<Employee> AddEmployee(Employee employee);
     }
 }

@@ -38,7 +38,8 @@ namespace BlazoeProject.Server.Extensions
         public static void ConfigureMysqlContext(this IServiceCollection services, IConfiguration config)
         {
             var connectionString = config.GetConnectionString("MySQLConnectionString");
-            services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(connectionString));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(connectionString)
+            .EnableSensitiveDataLogging());
         }
         public static void ConfigureUnitOfWork(this IServiceCollection services)
         {

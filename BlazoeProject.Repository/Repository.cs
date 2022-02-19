@@ -25,12 +25,22 @@ namespace BlazoeProject.Repository
             await _table.AddAsync(entity);
         }
 
-        public virtual IQueryable<T> FindAllAsync()
+        public virtual IQueryable<T> FindAll()
         {
             return _table.AsNoTracking();
         }
 
-        public virtual IQueryable<T> FindAllAsync(Expression<Func<T, bool>> expression)
+        public virtual async Task<MyDataResult<T>> FindAllAsync(int skip = 0, int take = 5)
+        {
+            MyDataResult<T> result = new MyDataResult<T>
+            {
+                Count = await _table.CountAsync(),
+                Result = _table.Skip(skip).Take(take).AsNoTracking(),
+            };
+            return result;
+        }
+
+        public virtual IQueryable<T> FindAll(Expression<Func<T, bool>> expression)
         {
             return _table.Where(expression).AsNoTracking();
         }
@@ -38,11 +48,11 @@ namespace BlazoeProject.Repository
         public virtual async Task<T> FindByIdAsync(ID id)
         {
             return await _table.FindAsync(id);
-        }
+        }   
 
-        public  void Remove(T entity)
+        public void Remove(T entity)
         {
-             _table.Remove(entity);
+            _table.Remove(entity);
         }
 
         public void Update(T entity)

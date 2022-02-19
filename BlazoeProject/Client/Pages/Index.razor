@@ -3,28 +3,17 @@
 @using BlazoeProject.Shared
 @using Syncfusion.Blazor.Grids
 
-<style>
-    .e-spinner-pane .e-spinner-inner .e-spin-bootstrap4 {
-        stroke: red;
-    }
-</style>
 
-<SfSpinner @bind-Visible="@SpinnerVisible" Label="Loading data...." Size="70" Type="@SpinnerType.Bootstrap4" />
-
-@if (Employees != null)
-{
-    <SfGrid DataSource="@Employees" AllowPaging="true" AllowSorting="true">
-        @*<GridPageSettings PageSize="5" PageCount="3" PageSizes="true"/>*@
-        <GridPageSettings PageSize="5" PageCount="3" PageSizes="@PagerDropDown" />
-        <GridColumns>
-            <GridColumn Field="@nameof(Employee.Id)" HeaderText="Id" />
-            <GridColumn Field="@nameof(Employee.FirstName)" HeaderText="First Name" />
-            <GridColumn Field="@nameof(Employee.LastName)" HeaderText="Last Name" />
-            <GridColumn Field="@nameof(Employee.Email)" HeaderText="Email Address" />
-        </GridColumns>
-    </SfGrid>
-}
-
+<SfGrid TValue="Employee" AllowPaging="true">
+    <SfDataManager Adaptor="Adaptors.CustomAdaptor" AdaptorInstance="@typeof(EmployeeDataAdaptor)"/>
+    <GridPageSettings PageSize="5" PageCount="3" PageSizes="@PagerDropDown" />
+    <GridColumns>
+        <GridColumn Field="@nameof(Employee.Id)" HeaderText="Id" />
+        <GridColumn Field="@nameof(Employee.FirstName)" HeaderText="First Name" />
+        <GridColumn Field="@nameof(Employee.LastName)" HeaderText="Last Name" />
+        <GridColumn Field="@nameof(Employee.Email)" HeaderText="Email Address" />
+    </GridColumns>
+</SfGrid>
 
 
 
@@ -33,17 +22,5 @@
 
     public string[] PagerDropDown { get; set; } = new string[] { "All", "5", "10", "15", "20" };
 
-    [Inject]
-    public IEmployeeService employeeService { get; set; }
-
-    public IEnumerable<Employee> Employees { get; set; }
-    private bool SpinnerVisible { get; set; }
-    protected async override Task OnInitializedAsync()
-    {
-        SpinnerVisible = true;
-        Employees = await employeeService.GetEmployees();
-        SpinnerVisible = false;
-    }
-
-
+   
 }
