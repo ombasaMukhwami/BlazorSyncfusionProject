@@ -25,11 +25,11 @@ namespace BlazoeProject.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetEmployees(int skip = 0, int take = 5)
+        public async Task<ActionResult> GetEmployees(int skip = 0, int take = 5, string sortBy = "Id")
         {
             try
             {
-                var employees = await _db.Employees.FindAllAsync(skip, take);
+                var employees = await _db.Employees.FindAllAsync(skip, take, sortBy);
 
                 return Ok(employees);
             }

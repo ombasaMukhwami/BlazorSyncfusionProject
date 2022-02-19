@@ -21,9 +21,9 @@ namespace BlazoeProject.Server.services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<MyDataResult<Employee>> GetEmployees(int skip, int take)
+        public async Task<MyDataResult<Employee>> GetEmployees(int skip, int take, string orderBy)
         {
-          return await _httpClient.GetFromJsonAsync<MyDataResult<Employee>>($"/api/employee?skip={skip}&take={take}");
+          return await _httpClient.GetFromJsonAsync<MyDataResult<Employee>>($"/api/employee?skip={skip}&take={take}&orderBy{orderBy}");
         }
     }
 }

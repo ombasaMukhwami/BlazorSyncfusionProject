@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.15" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BlazoeProject.Contract\BlazoeProject.Contract.csproj" />
     <ProjectReference Include="..\BlazoeProject\Shared\BlazoeProject.Shared.csproj" />
   </ItemGroup>

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,13 +35,16 @@ namespace BlazoeProject.Repository
                 .Include(c => c.Department);
         }
 
-        public override async Task<MyDataResult<Employee>> FindAllAsync(int skip = 0, int take = 5)
+        public override async Task<MyDataResult<Employee>> FindAllAsync(int skip = 0, int take = 5, string orderBy = "Id")
         {
+            //Dynamic link
+
+
             var employee = _dbContext.Employees.Include(c => c.Department);
             return new MyDataResult<Employee>
             {
                 Count = await employee.CountAsync(),
-                Result = employee.Skip(skip).Take(take).AsNoTracking()
+                Result = employee.OrderBy(orderBy).Skip(skip).Take(take).AsNoTracking()
             };
         }
 
