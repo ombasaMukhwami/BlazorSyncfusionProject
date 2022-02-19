@@ -4,9 +4,14 @@
 @using Syncfusion.Blazor.Grids
 
 
-<SfGrid TValue="Employee" AllowPaging="true">
+<SfGrid TValue="Employee" AllowPaging="true" AllowSorting="true">
     <SfDataManager Adaptor="Adaptors.CustomAdaptor" AdaptorInstance="@typeof(EmployeeDataAdaptor)"/>
     <GridPageSettings PageSize="5" PageCount="3" PageSizes="@PagerDropDown" />
+    <GridSortSettings AllowUnsort="false">
+        <GridSortColumns>
+            <GridSortColumn Field="@nameof(Employee.Id)"/>
+        </GridSortColumns>
+    </GridSortSettings>
     <GridColumns>
         <GridColumn Field="@nameof(Employee.Id)" HeaderText="Id" />
         <GridColumn Field="@nameof(Employee.FirstName)" HeaderText="First Name" />

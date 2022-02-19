@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
+
 
 namespace BlazoeProject.Repository
 {
@@ -30,12 +32,12 @@ namespace BlazoeProject.Repository
             return _table.AsNoTracking();
         }
 
-        public virtual async Task<MyDataResult<T>> FindAllAsync(int skip = 0, int take = 5)
+        public virtual async Task<MyDataResult<T>> FindAllAsync(int skip = 0, int take = 5, string orderBy = "Id")
         {
             MyDataResult<T> result = new MyDataResult<T>
             {
                 Count = await _table.CountAsync(),
-                Result = _table.Skip(skip).Take(take).AsNoTracking(),
+                Result = _table.OrderBy(orderBy).Skip(skip).Take(take).AsNoTracking(),
             };
             return result;
         }

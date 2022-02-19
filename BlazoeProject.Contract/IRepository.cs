@@ -12,7 +12,7 @@ namespace BlazoeProject.Contract
 
         IQueryable<T> FindAll();
         IQueryable<T> FindAll(Expression<Func<T, bool>> expression);
-        Task<MyDataResult<T>> FindAllAsync(int skip, int take);
+        Task<MyDataResult<T>> FindAllAsync(int skip, int take, string orderBy);
         Task<T> FindByIdAsync(ID id);
         Task AddAsync(T entity);
         void Update(T entity);
